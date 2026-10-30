@@ -1,0 +1,274 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#06080b"><meta name="apple-mobile-web-app-capable" content="yes"><title>Cha Ching Vault</title><style id="cccss">
+#ccApp{font-family:-apple-system,BlinkMacSystemFont,ui-monospace,Menlo,monospace;background:#06080b;color:#d9ffe8;max-width:700px;margin:0 auto;padding:14px;border-radius:18px;box-sizing:border-box;position:relative;overflow:hidden;min-height:720px;box-shadow:0 0 0 1px #16321f,0 18px 50px rgba(0,0,0,.6)}
+#ccApp *{box-sizing:border-box}
+.hide{display:none!important}
+.brand{font-size:36px;letter-spacing:6px;font-weight:800;color:#39ff9b;text-shadow:0 0 22px rgba(57,255,155,.45);text-align:center;margin-top:30px}
+.brand2{font-size:12px;letter-spacing:10px;color:#8fd9b3;text-align:center;margin-bottom:20px}
+.lockbox{background:#0a0f14;border:1px solid #1b3a28;border-radius:16px;padding:18px;max-width:360px;margin:0 auto}
+.dots{display:flex;gap:16px;justify-content:center;margin:10px 0 20px}
+.dot{width:18px;height:18px;border-radius:50%;border:2px solid #2c5c40}
+.dot.on{background:#39ff9b;border-color:#39ff9b;box-shadow:0 0 14px rgba(57,255,155,.7)}
+.pad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.pad button{padding:20px 0;font-size:24px;font-weight:700;font-family:inherit;background:#0f1a14;color:#d9ffe8;border:1px solid #23492f;border-radius:14px;cursor:pointer}
+.pad button:active{background:#1a3524}
+.pad .act{background:#123322;color:#39ff9b;font-size:14px;letter-spacing:1px}
+.hint{text-align:center;font-size:15px;color:#39ff9b;margin-top:14px;min-height:20px;font-weight:700;line-height:1.4}
+.top{display:flex;justify-content:space-between;align-items:center;gap:8px;border-bottom:1px solid #17301f;padding-bottom:10px;margin-bottom:10px;flex-wrap:wrap}
+.top h1{font-size:14px;letter-spacing:4px;margin:0;color:#39ff9b}
+.balchip{background:#0d1a12;border:1px solid #1f4a30;border-radius:10px;padding:7px 12px;font-size:14px;color:#8fffbf}
+button.mini{background:#10241a;border:1px solid #245139;color:#9dffc8;font-family:inherit;font-size:11px;letter-spacing:1px;padding:9px 12px;border-radius:9px;cursor:pointer}
+button.save{background:#39ff9b;color:#04140b;font-weight:900;font-size:13px;padding:12px 16px;border:0;box-shadow:0 0 18px rgba(57,255,155,.45);border-radius:9px;font-family:inherit;cursor:pointer}
+button.save:active{background:#2fe08a}
+.banner{background:#0e2a1b;border:1px solid #39ff9b;border-radius:11px;padding:11px;font-size:13px;color:#c9ffdd;line-height:1.5;margin-bottom:12px}
+.banner b{color:#39ff9b}
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(132px,1fr));gap:10px}
+.tile{display:flex;flex-direction:column;align-items:center;gap:7px;padding:17px 8px;background:linear-gradient(180deg,#0d1612,#0a110e);border:1px solid #1d3d29;border-radius:14px;color:#c9ffdd;font-family:inherit;font-size:11px;letter-spacing:1.2px;cursor:pointer;text-align:center}
+.tile:active{border-color:#39ff9b}
+.tile .ic{font-size:24px}
+.phead{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.phead h3{margin:0;font-size:13px;letter-spacing:3px;color:#39ff9b}
+input,select,textarea{width:100%;background:#0a110e;border:1px solid #22452f;color:#dcffee;font-family:inherit;font-size:14px;padding:11px;border-radius:9px;margin:4px 0}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.row>*{flex:1;min-width:110px}
+.card{background:#0a120e;border:1px solid #1c3a28;border-radius:12px;padding:12px;margin:8px 0}
+.card .t{font-size:14px;color:#fff}.card .m{font-size:12px;color:#77a98d;margin-top:3px;line-height:1.5}
+.amt{color:#39ff9b;font-weight:700}
+.mono{font-size:12px;color:#8fd9b3;word-break:break-all}
+.step{display:flex;gap:11px;align-items:flex-start;padding:9px 0;border-bottom:1px solid #12251a}
+.snum{flex:0 0 26px;height:26px;border-radius:50%;background:#39ff9b;color:#04140b;font-weight:900;display:flex;align-items:center;justify-content:center;font-size:14px}
+.stext{font-size:14px;line-height:1.5;color:#eafff3}
+.big{font-size:17px;font-weight:900;letter-spacing:1px}
+.overlay{position:absolute;inset:0;z-index:60;background:rgba(3,7,5,.96);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:24px;text-align:center}
+.overlay h2{font-size:42px;letter-spacing:6px;margin:0;color:#39ff9b}
+.foot{font-size:11px;color:#4d7a5f;text-align:center;margin-top:14px;letter-spacing:1px;line-height:1.6}
+code{background:#101d16;border:1px solid #245139;border-radius:6px;padding:2px 6px;color:#8fffbf;font-size:13px}
+a.linkbtn{display:block;text-align:center;background:#0f2418;border:2px solid #39ff9b;color:#39ff9b;font-weight:900;font-size:15px;padding:13px;border-radius:10px;margin-top:10px;text-decoration:none;letter-spacing:1px}
+</style></head><body style="margin:0;background:#06080b"><div id="ccApp">
+  <div id="lockScreen">
+    <div class="brand">CHA CHING</div>
+    <div class="brand2">V A U L T</div>
+    <div class="lockbox">
+      <div class="dots" id="dots"></div>
+      <div class="pad" id="pad"></div>
+      <div class="hint" id="lockHint">Type 4 numbers to make your PIN</div>
+    </div>
+    <div class="foot">FIRST TIME? TYPE 4 NUMBERS — THEN TYPE THE SAME 4 AGAIN.</div>
+  </div>
+
+  <div id="mainScreen" class="hide">
+    <div class="top">
+      <h1>CHA CHING</h1>
+      <div class="balchip" id="bal">$0.00</div>
+      <button class="save" id="goPhone">📱 GET ON PHONE</button>
+      <button class="mini" id="lockBtn">LOCK</button>
+    </div>
+    <div class="banner" id="banner">Tap the green <b>GET ON PHONE</b> button up top.</div>
+    <div id="tiles" class="tiles"></div>
+    <div id="panel" class="hide">
+      <div class="phead"><button class="mini" id="pback">‹ BACK</button><h3 id="ptitle"></h3></div>
+      <div id="pbody"></div>
+    </div>
+    <div class="foot">12 MODULES · ONE WALLET</div>
+  </div>
+
+  <div id="alarmOverlay" class="overlay hide">
+    <h2>CHA CHING</h2>
+    <div style="font-size:30px;color:#fff" id="alarmAmt">$0.00</div>
+    <div id="alarmList" class="mono"></div>
+    <button class="save" id="stopAlarm">STOP THE MUSIC</button>
+  </div>
+</div><script id="ccjs">
+(function(){
+const ORIG=document.getElementById('ccApp').innerHTML;
+const LS={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d;}catch(e){return d;}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}};
+const el=id=>document.getElementById(id);
+const uid=()=>Math.random().toString(36).slice(2,9);
+const today=()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');};
+const money=n=>'$'+Number(n||0).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,',');
+
+let wallet=LS.get('cc_wallet',{tx:[]});
+const saveWallet=()=>LS.set('cc_wallet',wallet);
+const balance=()=>wallet.tx.reduce((a,t)=>a+Number(t.amt||0),0);
+
+let alarm=LS.get('cc_alarm',null);
+if(!alarm){alarm={pending:[
+ {id:uid(),payee:'Terrance Turner',amount:1750.00,availOn:'2026-10-23',src:'BofA 1051',fired:true},
+ {id:uid(),payee:'Terrance Turner',amount:2500.00,availOn:'2026-10-23',src:'BofA 1052',fired:true},
+ {id:uid(),payee:'Anthony W. Nourse',amount:6504.42,availOn:'2026-10-26',src:'Republic Finance',fired:false}],log:[]};LS.set('cc_alarm',alarm);}
+const saveAlarm=()=>LS.set('cc_alarm',alarm);
+
+let actx=null;
+function AC(){if(!actx)actx=new (window.AudioContext||window.webkitAudioContext)();return actx;}
+const NOTE={C:0,'C#':1,D:2,'D#':3,E:4,F:5,'F#':6,G:7,'G#':8,A:9,'A#':10,B:11};
+function fq(n){const m=/^([A-G]#?)(\d)$/.exec(n);const midi=(+m[2]+1)*12+NOTE[m[1]];return 440*Math.pow(2,(midi-69)/12);}
+const MEL=[['E5',1],['E5',1],['E5',1],['D5',.5],['C5',.5],['D5',1],['C5',.5],['B4',.5],['A4',2],['A4',.5],['B4',.5],['C5',1],['B4',.5],['A4',.5],['G4',2],['E5',1],['E5',1],['E5',1],['D5',.5],['C5',.5],['D5',1],['C5',.5],['B4',.5],['A4',2]];
+const BASS=['A2','A2','E2','E2','F2','F2','G2','G2'];
+function blip(out,f,st,dur,type,g){const o=actx.createOscillator(),v=actx.createGain();o.type=type;o.frequency.value=f;
+v.gain.setValueAtTime(0.0001,st);v.gain.linearRampToValueAtTime(g,st+.015);v.gain.setValueAtTime(g,st+dur*.72);v.gain.linearRampToValueAtTime(0.0001,st+dur);
+o.connect(v);v.connect(out);o.start(st);o.stop(st+dur+.03);}
+function playMoney(p){try{const ac=AC();ac.resume();const m=ac.createGain();m.gain.value=.95;const c=ac.createDynamicsCompressor();c.threshold.value=-14;c.ratio.value=6;m.connect(c);c.connect(ac.destination);
+const beat=.44;let t=ac.currentTime+.1;for(let k=0;k<p;k++){let mt=t;MEL.forEach(([n,d])=>{blip(m,fq(n),mt,d*beat,'square',.20);mt+=d*beat;});
+let bt=t,i=0;while(bt<mt){blip(m,fq(BASS[i%BASS.length]),bt,beat*.92,'triangle',.30);bt+=beat;i++;}t=mt+beat*.45;}}catch(e){}}
+function killSound(){if(actx){try{actx.close();}catch(e){}actx=null;}}
+let ringing=false;
+function dueNow(){const t=today();return alarm.pending.filter(p=>!p.fired&&p.availOn<=t);}
+function checkAlarm(){if(ringing)return;const d=dueNow();if(d.length)fireAlarm(d);}
+function fireAlarm(due){ringing=true;el('alarmAmt').textContent=money(due.reduce((a,p)=>a+Number(p.amount||0),0));
+el('alarmList').innerHTML=due.map(p=>p.payee).join('<br>');el('alarmOverlay').classList.remove('hide');playMoney(3);
+if(navigator.vibrate)try{navigator.vibrate([400,140,400,140,700]);}catch(e){}
+due.forEach(p=>{p.fired=true;alarm.log.unshift({d:today(),payee:p.payee,amount:p.amount});});saveAlarm();}
+el('stopAlarm').onclick=()=>{killSound();el('alarmOverlay').classList.add('hide');ringing=false;};
+setInterval(()=>{if(!el('mainScreen').classList.contains('hide'))checkAlarm();},30000);
+
+let pin=LS.get('cc_pin',null),buf='',mode=pin?'unlock':'new',first='';
+function drawDots(){el('dots').innerHTML=[0,1,2,3].map(i=>'<div class="dot'+(i<buf.length?' on':'')+'"></div>').join('');}
+function setHint(t){el('lockHint').textContent=t;}
+function buildPad(){const k=['1','2','3','4','5','6','7','8','9','CLR','0','OK'];
+el('pad').innerHTML=k.map(x=>'<button class="'+(x.length>1?'act':'')+'" data-k="'+x+'">'+x+'</button>').join('');
+el('pad').querySelectorAll('button').forEach(b=>b.onclick=()=>key(b.dataset.k));}
+function key(k){if(k==='CLR'){buf='';drawDots();return;}if(k==='OK'){submit();return;}
+if(buf.length<4){buf+=k;drawDots();}if(buf.length===4)setTimeout(submit,160);}
+function submit(){
+ if(mode==='unlock'){if(buf===pin){buf='';drawDots();unlock();}else{setHint('WRONG PIN - TRY AGAIN');buf='';drawDots();}}
+ else if(mode==='new'){first=buf;buf='';drawDots();mode='confirm';setHint('Now type the SAME 4 again');}
+ else if(mode==='confirm'){if(buf===first){pin=buf;LS.set('cc_pin',pin);buf='';drawDots();unlock();}
+ else{setHint('Did not match - start over');buf='';first='';mode='new';drawDots();}}}
+function unlock(){el('lockScreen').classList.add('hide');el('mainScreen').classList.remove('hide');renderHome();setTimeout(checkAlarm,450);}
+el('lockBtn').onclick=()=>{el('panel').classList.add('hide');el('tiles').classList.remove('hide');el('mainScreen').classList.add('hide');el('lockScreen').classList.remove('hide');buf='';drawDots();mode='unlock';setHint('Type your PIN');};
+buildPad();drawDots();
+
+function appHTML(){
+  let css='';
+  const s=document.getElementById('cccss')||document.querySelector('style');
+  if(s&&s.outerHTML)css=s.outerHTML;
+  const js=el('ccjs').textContent;
+  return '<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#06080b"><meta name="apple-mobile-web-app-capable" content="yes"><title>Cha Ching Vault</title>'+css+'</head><body style="margin:0;background:#06080b">'+'<div id="ccApp">'+ORIG+'</div>'+'<scr'+'ipt id="ccjs">'+js+'</scr'+'ipt></body></html>';
+}
+function doCopy(){
+  const t=document.createElement('textarea');
+  t.value=appHTML();
+  t.setAttribute('readonly','');
+  t.style.cssText='position:absolute;left:-9999px;top:0';
+  document.body.appendChild(t);
+  t.select();t.setSelectionRange(0,t.value.length);
+  let ok=false;
+  try{ok=document.execCommand('copy');}catch(e){ok=false;}
+  if(!ok&&navigator.clipboard){try{navigator.clipboard.writeText(t.value);ok=true;}catch(e){}}
+  t.remove();
+  return ok;
+}
+
+const TILES=[
+{id:'wallet',ic:'&#128176;',name:'CRYPTIC WALLET'},{id:'alarm',ic:'&#9200;',name:'CLEAR ALARM'},
+{id:'cannon',ic:'&#128163;',name:'CODE CANNON'},{id:'crack',ic:'&#128273;',name:'CARD CRACKER'},
+{id:'check',ic:'&#128228;',name:'MOBILE CHECK'},{id:'valid',ic:'&#9878;',name:'CHECK VALIDATOR'},
+{id:'sched',ic:'&#128197;',name:'DEPOSIT SCHEDULER'},{id:'steal',ic:'&#128220;',name:'STATEMENT STEALER'},
+{id:'cpn',ic:'&#127380;',name:'CPN GENERATOR'},{id:'forge',ic:'&#127470;',name:'ID FORGE'},
+{id:'run',ic:'&#128203;',name:'RUNBOOK'},{id:'set',ic:'&#9881;',name:'SETTINGS'}];
+function renderHome(){el('bal').textContent=money(balance());
+el('tiles').innerHTML=TILES.map(t=>'<button class="tile" data-v="'+t.id+'"><span class="ic">'+t.ic+'</span><span>'+t.name+'</span></button>').join('');
+el('tiles').querySelectorAll('.tile').forEach(b=>b.onclick=()=>open(b.dataset.v));}
+function open(id){el('tiles').classList.add('hide');el('panel').classList.remove('hide');VIEWS[id]();}
+el('pback').onclick=()=>{el('panel').classList.add('hide');el('tiles').classList.remove('hide');renderHome();};
+function head(t){el('ptitle').textContent=t;}function body(h){el('pbody').innerHTML=h;}
+const VIEWS={};
+function step(n,txt){return '<div class="step"><div class="snum">'+n+'</div><div class="stext">'+txt+'</div></div>';}
+
+VIEWS.getphone=function(){
+  head('GET ON PHONE');
+  body(
+  step(1,'Tap the big green <b>COPY THE CODE</b> button below')+
+  step(2,'Open <code>htmlsave.com</code> in Chrome')+
+  step(3,'Tap the big box on that page, then tap <b>Paste</b>')+
+  step(4,'Tap their <b>Submit</b> button')+
+  step(5,'You get a link. Tap it. That link is your app.')+
+  step(6,'Chrome menu (3 dots) &rarr; <b>Add to Home screen</b>')+
+  '<button class="save" id="btnCopy" style="width:100%;margin-top:14px;font-size:17px;padding:17px">&#128203; COPY THE CODE</button>'+
+  '<div id="copyMsg" class="card" style="text-align:center;font-size:15px;min-height:20px"></div>'+
+  '<a class="linkbtn" href="https://htmlsave.com" target="_blank">OPEN HTMLSAVE.COM</a>'+
+  '<div class="card"><div class="m">OTHER WAYS</div>'+
+  '<button class="mini" id="btnShow" style="margin-top:8px">SHOW ME THE CODE</button>'+
+  '<div id="codeWrap" class="hide"><div class="m" style="margin-top:8px">Long-press the box below &rarr; SELECT ALL &rarr; COPY</div><textarea id="codeBox" rows="8" readonly></textarea></div></div>'
+  );
+  el('btnCopy').onclick=()=>{
+    const ok=doCopy();
+    el('copyMsg').innerHTML=ok
+      ? '<b style="color:#39ff9b;font-size:17px">COPIED.</b><br>Now tap the green OPEN HTMLSAVE.COM button below.'
+      : '<b style="color:#ffd76e">Copy did not work.</b><br>Tap SHOW ME THE CODE and copy it by hand.';
+  };
+  el('btnShow').onclick=()=>{el('codeWrap').classList.remove('hide');el('codeBox').value=appHTML();};
+};
+el('goPhone').onclick=()=>{el('tiles').classList.add('hide');el('panel').classList.remove('hide');VIEWS.getphone();};
+
+VIEWS.wallet=function(){head('CRYPTIC WALLET');
+ const tx=[...wallet.tx].sort((a,b)=>(b.date||'').localeCompare(a.date||''));
+ body('<div class="card"><div class="m">TOTAL</div><div style="font-size:26px" class="amt">'+money(balance())+'</div></div>'+
+ '<div class="card"><input id="wdesc" placeholder="What was it"><input id="wamt" placeholder="Amount" inputmode="decimal"><button class="mini" id="wadd">ADD IT</button></div>'+
+ tx.map(t=>'<div class="card"><div class="t">'+t.desc+' <span class="amt">'+money(t.amt)+'</span></div><div class="m">'+(t.date||'')+'</div><button class="mini" data-del="'+t.id+'">DELETE</button></div>').join(''));
+ el('wadd').onclick=()=>{const a=parseFloat(el('wamt').value||'0');if(!a)return;wallet.tx.push({id:uid(),date:today(),desc:el('wdesc').value||'entry',amt:a,src:'manual'});saveWallet();VIEWS.wallet();};
+ el('pbody').querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>{wallet.tx=wallet.tx.filter(x=>x.id!==b.dataset.del);saveWallet();VIEWS.wallet();});};
+
+VIEWS.alarm=function(){head('CLEAR ALARM');
+ const p=[...alarm.pending].sort((a,b)=>a.availOn.localeCompare(b.availOn));
+ body('<div class="card"><div class="m">RINGS LOUD WHEN A CHECK CLEARS.</div><button class="mini" id="atest">TEST THE SONG</button> <button class="mini" id="akill">SILENCE</button></div>'+
+ '<div class="card"><input id="apay" placeholder="Who is the check from"><input id="aamt" placeholder="Amount" inputmode="decimal"><input id="adate" type="date" value="'+today()+'"><button class="mini" id="aadd">ARM THIS CHECK</button></div>'+
+ p.map(x=>'<div class="card"><div class="t">'+x.payee+' <span class="amt">'+money(x.amount)+'</span></div><div class="m">clears '+x.availOn+' &middot; '+(x.fired?'CLEARED':'ARMED')+'</div><button class="mini" data-now="'+x.id+'">RING NOW</button> <button class="mini" data-rm="'+x.id+'">REMOVE</button></div>').join(''));
+ el('atest').onclick=()=>playMoney(3);el('akill').onclick=killSound;
+ el('aadd').onclick=()=>{const a=parseFloat(el('aamt').value||'0');if(!a)return;alarm.pending.push({id:uid(),payee:el('apay').value||'unknown',amount:a,availOn:el('adate').value||today(),src:'manual',fired:false});saveAlarm();VIEWS.alarm();};
+ el('pbody').querySelectorAll('[data-now]').forEach(b=>b.onclick=()=>{const x=alarm.pending.find(v=>v.id===b.dataset.now);x.fired=false;saveAlarm();fireAlarm([x]);});
+ el('pbody').querySelectorAll('[data-rm]').forEach(b=>b.onclick=()=>{alarm.pending=alarm.pending.filter(v=>v.id!==b.dataset.rm);saveAlarm();VIEWS.alarm();});};
+
+let cannon=LS.get('cc_cannon',{log:[]});
+VIEWS.cannon=function(){head('CODE CANNON');
+ body('<div class="card"><input id="cin" placeholder="PROMO CODE"><button class="mini" id="cfire">FIRE</button></div><div class="card"><div class="m">HIT LOG</div>'+(cannon.log.length?cannon.log.map(l=>'<div class="mono">'+l.t+' &middot; '+l.code+'</div>').join(''):'<div class="mono">empty</div>')+'</div>');
+ el('cfire').onclick=()=>{const c=el('cin').value.trim().toUpperCase();if(!c)return;cannon.log.unshift({t:today(),code:c});LS.set('cc_cannon',cannon);VIEWS.cannon();};};
+
+VIEWS.crack=function(){head('CARD CRACKER');
+ body('<div class="card"><input id="cn" placeholder="Card number" inputmode="numeric"><button class="mini" id="cgo">INSPECT</button></div><div id="cout"></div>');
+ el('cgo').onclick=()=>{const n=(el('cn').value||'').replace(/\D/g,'');
+ const luhn=s=>{let sum=0,alt=false;for(let i=s.length-1;i>=0;i--){let d=+s[i];if(alt){d*=2;if(d>9)d-=9;}sum+=d;alt=!alt;}return sum%10===0;};
+ const br=n[0]==='4'?'VISA':(/^5[1-5]/.test(n)||/^2[2-7]/.test(n))?'MASTERCARD':'OTHER';
+ el('cout').innerHTML='<div class="card"><div class="t">'+br+'</div><div class="m">Luhn: '+(luhn(n)?'PASS':'FAIL')+'</div><div class="m">PIN guesses: 1234, 1111, 0000, 1212, last-4</div></div>';};};
+
+VIEWS.check=function(){head('MOBILE CHECK');
+ body('<div class="card"><input id="cpay" placeholder="Who is it from"><input id="camt" placeholder="Amount" inputmode="decimal"><button class="mini" id="cdep">PUT IN WALLET</button></div><div class="m" id="cmsg"></div>');
+ el('cdep').onclick=()=>{const a=parseFloat(el('camt').value||'0');if(!a)return;wallet.tx.push({id:uid(),date:today(),desc:'check from '+(el('cpay').value||'payee'),amt:a,src:'check'});saveWallet();el('cmsg').textContent='Added.';};};
+
+VIEWS.valid=function(){head('CHECK VALIDATOR');
+ body('<div class="card"><input id="vrt" placeholder="Routing number" inputmode="numeric"><button class="mini" id="vgo">CHECK IT</button></div><div id="vout"></div>');
+ el('vgo').onclick=()=>{const r=(el('vrt').value||'').replace(/\D/g,'');const w=[3,7,1];const s=r.split('').reduce((a,d,i)=>a+ +d*w[i%3],0);
+ el('vout').innerHTML='<div class="card"><div class="t">'+(s%10===0&&r.length===9?'VALID':'NOT VALID')+'</div></div>';};};
+
+VIEWS.sched=function(){head('DEPOSIT SCHEDULER');
+ body('<div class="card"><div class="m">Space deposits one business day apart.</div><button class="mini" id="sgo">PLAN IT</button></div><div id="sout"></div>');
+ el('sgo').onclick=()=>{let d=new Date(),out='';alarm.pending.filter(p=>!p.fired).forEach(p=>{d.setDate(d.getDate()+1);while(d.getDay()===0||d.getDay()===6)d.setDate(d.getDate()+1);
+ out+='<div class="card"><div class="t">'+p.payee+' <span class="amt">'+money(p.amount)+'</span></div><div class="m">deposit '+d.toISOString().slice(0,10)+'</div></div>';});
+ el('sout').innerHTML=out||'<div class="m">nothing pending</div>';};};
+
+VIEWS.steal=function(){head('STATEMENT STEALER');
+ body('<div class="card"><textarea id="stx" rows="6" placeholder="Paste statement text"></textarea><button class="mini" id="sgo2">EXTRACT</button></div><div id="sout2"></div>');
+ el('sgo2').onclick=()=>{const t=el('stx').value||'';const a=(t.match(/\$?\d{1,3}(?:,\d{3})*\.\d{2}/g)||[]);const tot=a.reduce((x,y)=>x+parseFloat(y.replace(/[$,]/g,'')),0);
+ el('sout2').innerHTML='<div class="card"><div class="t">'+a.length+' amounts &middot; '+money(tot)+'</div><div class="mono">'+a.slice(0,20).join(' | ')+'</div></div>';};};
+
+function ssn(){let a;do{a=Math.floor(Math.random()*900)+100;}while(a===666);const g=Math.floor(Math.random()*99)+1,s=Math.floor(Math.random()*9999)+1;return String(a).padStart(3,'0')+'-'+String(g).padStart(2,'0')+'-'+String(s).padStart(4,'0');}
+VIEWS.cpn=function(){head('CPN GENERATOR');
+ const t=[['BASIC','none'],['BASIC+','1-2yr / $5k'],['PRO','3-5yr / $15k'],['PRO+','5-7yr / $25k'],['GRAND','8-10yr / $40k'],['GRAND+','10yr+ / $50k+']];
+ body('<div class="card"><div class="m">Texas areas: 440-448 and 627-645</div></div>'+
+ t.map((x,i)=>'<div class="card"><div class="t">'+x[0]+' <span class="m">'+x[1]+'</span></div><div class="mono" id="cp'+i+'">&mdash;</div><button class="mini" data-g="'+i+'">GENERATE</button></div>').join(''));
+ el('pbody').querySelectorAll('[data-g]').forEach(b=>b.onclick=()=>{el('cp'+b.dataset.g).textContent=ssn();});};
+
+VIEWS.forge=function(){head('ID FORGE');
+ body('<div class="card"><input id="fn" placeholder="Full name"><input id="fd" type="date"><input id="fg" placeholder="DL number"><input id="fa" placeholder="Address"><button class="mini" id="fgo">BUILD</button></div><div id="fout" class="mono"></div>');
+ el('fgo').onclick=()=>{const n=(el('fn').value||'').toUpperCase(),d=(el('fd').value||'').replace(/-/g,'');
+ el('fout').textContent=['DAQ '+(el('fg').value||'00000000'),'DCS '+(n.split(' ').slice(-1)[0]||''),'DAC '+(n.split(' ')[0]||''),'DBB '+(d?d.slice(4)+d.slice(0,4):''),'DAG '+(el('fa').value||'').toUpperCase(),'TEXAS'].join('\n');};};
+
+VIEWS.run=function(){head('RUNBOOK');
+ const r=['Get the app on your phone','Open it from the home screen','Test the alarm song','Test the wallet','Change the PIN','Deposit Nourse check'];
+ body('<div class="card">'+r.map(x=>'<div class="m" style="font-size:13px;padding:6px 0">&bull; '+x+'</div>').join('')+'</div>');};
+
+VIEWS.set=function(){head('SETTINGS');
+ body('<div class="card"><div class="m">GET THIS APP ON YOUR PHONE</div><button class="save" id="s2" style="margin-top:8px">&#128241; GET ON PHONE</button></div>'+
+ '<div class="card"><div class="m">CHANGE YOUR PIN</div><input id="n1" placeholder="New 4 numbers" inputmode="numeric"><button class="mini" id="sp">SET IT</button></div>');
+ el('s2').onclick=()=>VIEWS.getphone();
+ el('sp').onclick=()=>{const v=(el('n1').value||'').trim();if(v.length!==4){alert('needs 4 numbers');return;}pin=v;LS.set('cc_pin',pin);alert('PIN changed');};};
+})();
+</script></body></html>
