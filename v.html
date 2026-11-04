@@ -44,7 +44,7 @@ function route(){
   p.innerHTML='<div class="mh"><b>'+(t?t[0]:k)+'</b><a class="x" href="#">✕</a></div><div id="body"><p class="hint" id="ph">loading...</p></div>';
   window.scrollTo(0,0);
   var s=document.createElement("script");
-  s.src=k+".js";
+  s.src=k+".js?t="+Date.now();
   s.onload=function(){var q=document.getElementById("ph");if(q)q.textContent=""};
   s.onerror=function(){var q=document.getElementById("ph");if(q)q.textContent="module "+k+".js not built yet"};
   document.body.appendChild(s);
