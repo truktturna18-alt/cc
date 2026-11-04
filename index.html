@@ -1,10 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Cha Ching</title>
-<style>
+<html data-host-mode="dark"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script>Object.defineProperty(document, "cookie", {get: function() { return ""; },set: function() {},configurable: false});</script><script type="module">(async()=>{if(typeof FileSystemFileHandle!=="undefined"&&"createWritable"in FileSystemFileHandle.prototype)return;if(!navigator.storage?.getDirectory)return;try{const{createWorker}=await import("https://esm.sh/opfs-worker@1.3.1");const w=await createWorker();class W{constructor(p){this.p=p;this.c=[];this.x=false}write(d){if(this.x)throw new DOMException("closed","InvalidStateError");if(typeof d==="object"&&"type"in d&&!(d instanceof Blob)&&!(d instanceof ArrayBuffer)){if(d.type==="write")this.c.push(d.data);else if(d.type==="truncate")this.c=[];return}this.c.push(d)}async close(){if(this.x)return;const b=new Blob(this.c);await w.writeFile(this.p,new Uint8Array(await b.arrayBuffer()));this.x=true;this.c=[]}abort(){this.x=true;this.c=[]}}const pF=(h,p)=>new Proxy(h,{get:(t,k)=>k==="createWritable"?async()=>new W(p):typeof t[k]==="function"?t[k].bind(t):t[k]});const pD=(h,p)=>new Proxy(h,{get:(t,k)=>{if(k==="getFileHandle")return async(n,o)=>pF(await t.getFileHandle(n,o),(p+"/"+n).replace(/[/]+/g,"/"));if(k==="getDirectoryHandle")return async(n,o)=>pD(await t.getDirectoryHandle(n,o),(p+"/"+n).replace(/[/]+/g,"/"));return typeof t[k]==="function"?t[k].bind(t):t[k]}});const og=navigator.storage.getDirectory.bind(navigator.storage);navigator.storage.getDirectory=async function(){return pD(await og.call(this),"/")};}catch(e){console.warn("[OPFS]",e)}})();</script><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"><style>:root { --host-bg: #0E1217; --host-fg: #eeede4; --host-fg-muted: #A2A6AA; --host-card: rgba(255,255,255,0.04); --host-card-fg: #eeede4; --host-input: rgba(255,255,255,0.04); --host-muted: rgba(255,255,255,0.04); --host-border: rgba(255,255,255,0.06); --host-border-hover: rgba(255,255,255,0.12); --host-primary: #125DA3; --host-secondary: rgba(255,255,255,0.04); --host-secondary-fg: #eeede4; --host-success: #5F9437; --host-error: #D73436; } * { box-sizing: border-box; margin: 0; padding: 0; } :root, html, body { width: 100%; max-width: 100%; height: auto; overflow-x: hidden; overflow-y: visible; background: transparent; font-family: Inter, system-ui, -apple-system, sans-serif; } #sandbox-content { width: 100%; } @media (max-width: 640px) { :where(#sandbox-content svg, #sandbox-content img) { max-width: 100%; height: auto; } } </style></head><body><div id="sandbox-content"><style>
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 body{margin:0;background:#0b0d10;color:#e8e6e1;font:15px/1.45 -apple-system,system-ui,sans-serif;padding-bottom:30px}
 #hdr{padding:14px 14px 8px;border-bottom:1px solid #1e232b;position:sticky;top:0;background:#0b0d10;z-index:5}
@@ -36,11 +31,8 @@ button.g{width:100%;background:#1a2029;color:#cfd6de;border:1px solid #2b333f;bo
 .out{background:#0a1420;border:1px solid #1b3a5c;border-radius:8px;padding:11px;font:11.5px/1.55 ui-monospace,Menlo,monospace;white-space:pre-wrap;margin-top:9px;color:#bcd6f0}
 .bar{height:7px;background:#1e232b;border-radius:5px;overflow:hidden;margin:5px 0 2px}
 .bar i{display:block;height:100%;background:#7ce38b}
-#gate{position:fixed;inset:0;background:#0b0d10;z-index:99;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:30px;text-align:center}
-#gate input{max-width:180px;text-align:center;font-size:26px;letter-spacing:.4em;padding:12px}
 .agent{background:#12161c;border:1px solid #1e232b;border-radius:9px;padding:11px;margin:8px 0}
 .agent h4{margin:0 0 2px;font:700 12px/1 -apple-system;letter-spacing:.1em;text-transform:uppercase;color:#d4af37}
-.agent p{margin:0;font-size:10.5px;color:#6b7480}
 .cnum{font:600 15px/1.3 ui-monospace,Menlo,monospace;letter-spacing:.06em;color:#f0e6cf;margin:5px 0}
 .thumb{width:100%;border-radius:6px;margin-top:6px;background:#000;display:block}
 #toast{position:fixed;bottom:14px;left:14px;right:14px;background:#12321c;color:#7ce38b;border:1px solid #1d5c30;border-radius:8px;padding:10px;font-size:12px;text-align:center;opacity:0;transition:opacity .25s;pointer-events:none;z-index:99}
@@ -48,12 +40,9 @@ button.g{width:100%;background:#1a2029;color:#cfd6de;border:1px solid #2b333f;bo
 .tier{font:700 8.5px/1 Arial;letter-spacing:.1em;padding:2px 6px;border-radius:3px;margin-right:5px}
 .tA{background:#12321c;color:#7ce38b}.tB{background:#3a2a08;color:#e0b64a}.tC{background:#3a1414;color:#f08a8a}
 </style>
-</head>
-<body>
 
-<div id="gate"><div class="brand" style="margin-bottom:18px">CHA CHING</div><div class="sub" id="glabel">ENTER PIN</div><input id="gpin" type="tel" maxlength="6" inputmode="numeric" style="margin-top:12px"><button class="b" style="max-width:180px" onclick="gGo()">UNLOCK</button><button class="g" style="max-width:180px" onclick="skip()">SKIP</button><div class="hint" id="gmsg"></div></div>
-<div id="app" hidden><div id="hdr"><div class="brand">CHA CHING</div><div class="sub">cleared</div><div class="bal" id="bal">$0.00</div></div><div id="grid"></div></div>
-<div id="modal"></div><div id="toast">Copied</div>
+<div id="app"><div id="hdr"><div class="brand">CHA CHING</div><div class="sub">cleared</div><div class="bal" id="bal">$0.00</div></div><div id="grid"><div class="t" onclick="open_('alarm')"><div class="g">🔔</div><div class="n">ALARM</div></div><div class="t" onclick="open_('wallet')"><div class="g">💳</div><div class="n">WALLET</div></div><div class="t" onclick="open_('checks')"><div class="g">🧾</div><div class="n">CHECKS</div></div><div class="t hot" onclick="open_('crack')"><div class="g">🔓</div><div class="n">CARD OPS</div></div><div class="t" onclick="open_('dep')"><div class="g">🏧</div><div class="n">DEPOSIT</div></div><div class="t" onclick="open_('assets')"><div class="g">🏦</div><div class="n">ASSETS</div></div><div class="t" onclick="open_('idf')"><div class="g">🪪</div><div class="n">ID FORGE</div></div><div class="t" onclick="open_('cpn')"><div class="g">#️⃣</div><div class="n">CPN / EIN</div></div><div class="t" onclick="open_('ss4')"><div class="g">📠</div><div class="n">SS-4 FILER</div></div><div class="t" onclick="open_('war')"><div class="g">⚔️</div><div class="n">WAR ROOM</div></div><div class="t" onclick="open_('tl')"><div class="g">📈</div><div class="n">TRADELINES</div></div><div class="t" onclick="open_('bur')"><div class="g">🔍</div><div class="n">BUREAU PULL</div></div><div class="t" onclick="open_('disp')"><div class="g">⚖️</div><div class="n">DISPUTE DESK</div></div><div class="t" onclick="open_('router')"><div class="g">🧭</div><div class="n">ROUTER</div></div><div class="t" onclick="open_('inq')"><div class="g">🛡️</div><div class="n">INQUIRY</div></div><div class="t" onclick="open_('run')"><div class="g">📋</div><div class="n">RUNBOOK</div></div><div class="t hot" onclick="open_('agents')"><div class="g">🤖</div><div class="n">AGENTS</div></div><div class="t" onclick="open_('vault')"><div class="g">🗄️</div><div class="n">VAULT</div></div></div></div>
+<div id="modal" class=""></div><div id="toast">Copied</div>
 
 <script>
 const K={pin:'cc_pin',wallet:'cc_wallet',checks:'cc_checks',cards:'cc_cards',ids:'cc_ids',ein:'cc_ein',war:'cc_war',run:'cc_run',tl:'cc_tl',disp:'cc_disp',bur:'cc_bur',as:'cc_as',inq:'cc_inq',sk:'cc_sk'};
@@ -65,11 +54,6 @@ const money=n=>'$'+(Number(n)||0).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,','
 const today=()=>new Date().toISOString().slice(0,10);
 function toast(t){const x=$('toast');x.textContent=t;x.classList.add('on');setTimeout(()=>x.classList.remove('on'),1400)}
 function cp(v){const ta=document.createElement('textarea');ta.value=v;ta.style.position='fixed';ta.style.left='-9999px';document.body.appendChild(ta);ta.select();try{document.execCommand('copy');toast('Copied')}catch(e){toast('Copy failed')}document.body.removeChild(ta)}
-
-let gmode='enter';
-function gInit(){if(!localStorage.getItem(K.pin)){gmode='set';$('glabel').textContent='SET A PIN'}}
-function skip(){$('app').hidden=false;$('gate').style.display='none';boot()}
-function gGo(){const v=$('gpin').value.trim();if(gmode==='set'){if(v.length<4){$('gmsg').textContent='4+ digits';return}localStorage.setItem(K.pin,v);skip()}else{if(v===localStorage.getItem(K.pin)){skip()}else{$('gmsg').textContent='Wrong';$('gpin').value=''}}}
 
 const TILES=[['ALARM','🔔','alarm'],['WALLET','💳','wallet'],['CHECKS','🧾','checks'],['CARD OPS','🔓','crack'],['DEPOSIT','🏧','dep'],['ASSETS','🏦','assets'],['ID FORGE','🪪','idf'],['CPN / EIN','#️⃣','cpn'],['SS-4 FILER','📠','ss4'],['WAR ROOM','⚔️','war'],['TRADELINES','📈','tl'],['BUREAU PULL','🔍','bur'],['DISPUTE DESK','⚖️','disp'],['ROUTER','🧭','router'],['INQUIRY','🛡️','inq'],['RUNBOOK','📋','run'],['AGENTS','🤖','agents'],['VAULT','🗄️','vault']];
 function boot(){render()}
@@ -128,23 +112,4 @@ function micr(){const p=$('micr').value.replace(/\D/g,' ');const q=p.trim().spli
 let actx,atim;
 function mAlarm(b){b.innerHTML=`<button class="b" onclick="ring()">TEST</button><button class="g" onclick="stopRing()">STOP</button>`}
 function ring(){stopRing();try{actx=new (window.AudioContext||window.webkitAudioContext)()}catch(e){return}const n=[659,659,659,523,659,784,659,523],bs=[131,131,131,110,131,157,131,110],t0=actx.currentTime;for(let i=0;i<8;i++){const o=actx.createOscillator(),g=actx.createGain();o.type='square';o.frequency.value=n[i];g.gain.setValueAtTime(0,t0+i*.26);g.gain.linearRampToValueAtTime(.42,t0+i*.26+.02);g.gain.exponentialRampToValueAtTime(.001,t0+i*.26+.24);o.connect(g).connect(actx.destination);o.start(t0+i*.26);o.stop(t0+i*.26+.26);const o2=actx.createOscillator(),g2=actx.createGain();o2.type='triangle';o2.frequency.value=bs[i];g2.gain.setValueAtTime(0,t0+i*.26);g2.gain.linearRampToValueAtTime(.3,t0+i*.26+.02);g2.gain.exponentialRampToValueAtTime(.001,t0+i*.26+.24);o2.connect(g2).connect(actx.destination);o2.start(t0+i*.26);o2.stop(t0+i*.26+.26)}if(navigator.vibrate)navigator.vibrate([180,90,180,90,180]);atim=setTimeout(ring,2200)}
-function stopRing(){clearTimeout(atim);if(actx){try{actx.close()}catch(e){}}actx=null}
-
-function mWallet(b){const w=L(K.wallet,[]);b.innerHTML=`<div>${w.map((c,i)=>`<div class="card"><button class="del" onclick="wDel(${i})">✕</button><b>${esc(c.issuer)} ${esc(c.type||'')}</b><div class="m">•••• ${esc(c.last4)} · ${esc(c.holder||'')}</div></div>`).join('')||'<p class="hint">Empty.</p>'}</div><label>Issuer</label><input id="wi"><div class="row"><div><label>Last 4</label><input id="wl4" maxlength="4"></div><div><label>Type</label><select id="wt"><option>DEBIT</option><option>CREDIT</option></select></div></div><label>Holder</label><input id="wh"><button class="b" onclick="wAdd()">ADD</button>`}
-function wAdd(){const w=L(K.wallet,[]);if(!$('wl4').value.trim())return;w.push({issuer:$('wi').value.trim(),last4:$('wl4').value.trim(),type:$('wt').value,holder:$('wh').value.trim()});S(K.wallet,w);mWallet($('body'))}
-function wDel(i){const w=L(K.wallet,[]);w.splice(i,1);S(K.wallet,w);mWallet($('body'))}
-
-const CAP={d:2000,w:5000,m:10000};
-function capToday(){const t=today();return L(K.checks,[]).filter(c=>c.date===t&&c.st!=='void').reduce((a,c)=>a+(+c.amt||0),0)}
-function mChecks(b){
-  const ck=L(K.checks,[]).slice().sort((a,c)=>(c.date||'').localeCompare(a.date||''));const u=capToday(),p=Math.min(100,u/CAP.d*100);
-  b.innerHTML=`<label>Today ${money(u)} / ${money(CAP.d)}</label><div class="bar"><i style="width:${p}%"></i></div>
-  <div>${ck.map(c=>{const i=L(K.checks,[]).indexOf(c);return `<div class="card"><button class="del" onclick="cDel(${i})">✕</button><b>${money(c.amt)}</b> <span class="pill p-end">${esc(c.st)}</span><div class="m">${esc(c.payer||'')} · ${esc(c.date||'')}</div><div class="row" style="margin-top:5px"><button class="g" style="margin:0" onclick="cSt(${i},'submitted')">SUBMIT</button><button class="g" style="margin:0" onclick="cSt(${i},'cleared')">CLEARED</button></div></div>`}).join('')||'<p class="hint">None.</p>'}</div>
-  <label>Payer</label><input id="cp"><div class="row"><div><label>Amount</label><input id="ca" inputmode="decimal"></div><div><label>Date</label><input id="cd" type="date" value="${today()}"></div></div><button class="b" onclick="cAdd()">LOG</button>`;
-}
-function cAdd(){const ck=L(K.checks,[]);ck.push({payer:$('cp').value.trim(),amt:+$('ca').value||0,date:$('cd').value,st:'pending'});S(K.checks,ck);mChecks($('body'))}
-function cSt(i,s){const ck=L(K.checks,[]);ck[i].st=s;S(K.checks,ck);mChecks($('body'));render()}
-function cDel(i){const ck=L(K.checks,[]);ck.splice(i,1);S(K.checks,ck);mChecks($('body'));render()}
-
-const AT={'IRA':['Owner only','No'],'CD':['Owner only','YES secured loan'],'401k':['Owner only','401k loan'],'Brokerage':['Owner only','Margin/PAL'],'Savings':['Owner only','Secured loan'],'Statement':['No','No']};
-function mAssets(b){const a=L(K.as,[]);b.innerHTML=`<p class="hint">A statement is not money.</p><div>${a.map((x,i)=>`<div class="card"><button class="del" onclick="asDel(${i})">✕</button><b>${money(x.bal)}</b> <span class="pill p-end">${esc(x.type)}</span><div class="m">${esc(x.inst)} · ${esc(x.who)}</div></div>`).join('')||'<p class="hint">None.</p>'}</div><label>Institution</label><input id="asi"><div class="row"><div><label>Type</label><select id="ast">${Object.keys(AT).map(k=>`<option>
+function stopRing(){clearTimeout(atim);if(actx){try{actx.close()}ca
