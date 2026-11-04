@@ -25,11 +25,11 @@ body{margin:0;background:#0b0d10;color:#e8e6e1;font:15px/1.45 system-ui,sans-ser
 <div id="grid"></div>
 <div id="panel"></div>
 <script>
-var TILES=[["ALARM","🔔","alarm"],["WALLET","💳","wallet"],["CHECKS","🧾","checks"],["CARD OPS","🔓","crack2"],["POS","🧮","pos"],["DEPOSIT","🏧","dep"],["ASSETS","🏦","assets"],["ID FORGE","🪪","idf"],["CPN / EIN","#️⃣","cpn"],["SS-4","📠","ss4"],["WAR ROOM","⚔️","war"],["TRADELINES","📈","tl"],["BUREAU","🔍","bur"],["DISPUTE","⚖️","disp"],["ROUTER","🧭","router"],["INQUIRY","🛡️","inq"],["RUNBOOK","📋","run"],["AGENTS","🤖","agents"],["VAULT","🗄️","vault"]];
+var TILES=[["ALARM","🔔","alarm"],["WALLET","💳","wallet"],["CHECKS","🧾","checks"],["CARD OPS","🔓","crack3"],["POS","🧮","pos"],["DEPOSIT","🏧","dep"],["ASSETS","🏦","assets"],["ID FORGE","🪪","idf"],["CPN / EIN","#️⃣","cpn"],["SS-4","📠","ss4"],["WAR ROOM","⚔️","war"],["TRADELINES","📈","tl"],["BUREAU","🔍","bur"],["DISPUTE","⚖️","disp"],["ROUTER","🧭","router"],["INQUIRY","🛡️","inq"],["RUNBOOK","📋","run"],["AGENTS","🤖","agents"],["VAULT","🗄️","vault"]];
 var g=document.getElementById("grid");
 TILES.forEach(function(t){
   var a=document.createElement("a");
-  a.className="t"+(t[2]==="crack2"?" hot":"");
+  a.className="t"+(t[2]==="crack3"?" hot":"");
   a.href="#"+t[2];
   a.innerHTML='<span class="g">'+t[1]+'</span><span class="n">'+t[0]+'</span>';
   g.appendChild(a);
