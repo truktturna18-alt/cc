@@ -7,8 +7,8 @@ body{margin:0;background:#0b0d10;color:#e8e6e1;font:15px/1.45 -apple-system,syst
 .bal{font:700 26px/1.2 -apple-system;color:#7ce38b;margin-top:6px}
 .sub{font-size:11px;color:#6b7480;letter-spacing:.06em;text-transform:uppercase}
 #grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:10px}
-.t{background:#12161c;border:1px solid #1e232b;border-radius:10px;aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;cursor:pointer;padding:4px}
-.t:active{background:#1b222b}
+.t{background:#12161c;border:1px solid #1e232b;border-radius:10px;aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:4px;font:inherit;color:inherit;cursor:pointer}
+.t:active{background:#2a3440}
 .t .g{font-size:19px;color:#d4af37}.t .n{font-size:9.5px;text-align:center;color:#9aa3ad;line-height:1.15}
 .t.hot{border-color:#5a3f10;background:#171208}
 #modal{position:fixed;inset:0;background:#0b0d10;z-index:50;display:none;overflow-y:auto;padding:14px 14px 60px}
@@ -18,4 +18,118 @@ body{margin:0;background:#0b0d10;color:#e8e6e1;font:15px/1.45 -apple-system,syst
 .x{background:#1e232b;border:0;color:#e8e6e1;font-size:18px;width:34px;height:34px;border-radius:8px}
 label{display:block;font-size:10.5px;color:#6b7480;letter-spacing:.08em;text-transform:uppercase;margin:9px 0 3px}
 input,select,textarea{width:100%;background:#12161c;border:1px solid #262d38;border-radius:7px;color:#e8e6e1;padding:9px;font:15px/1.3 -apple-system;font-family:inherit}
-textarea{min-height:78px;font-family:ui-
+textarea{min-height:78px;font-family:ui-monospace,Menlo,monospace;font-size:12px}
+button.b{width:100%;background:#d4af37;color:#0b0d10;border:0;border-radius:8px;padding:12px;font:700 12.5px/1 -apple-system;letter-spacing:.09em;text-transform:uppercase;margin-top:11px}
+button.g{width:100%;background:#1a2029;color:#cfd6de;border:1px solid #2b333f;border-radius:8px;padding:11px;font:600 11.5px/1 -apple-system;letter-spacing:.07em;margin-top:7px}
+.row{display:flex;gap:7px}.row>*{flex:1}
+.card{background:#12161c;border:1px solid #1e232b;border-radius:9px;padding:10px;margin:7px 0;font-size:13px}
+.card b{color:#f0e6cf}.card .m{font-size:11px;color:#6b7480;margin-top:3px}
+.pill{display:inline-block;font-size:9.5px;padding:2px 7px;border-radius:20px;letter-spacing:.06em;text-transform:uppercase;font-weight:700;margin-right:4px}
+.p-end{background:#3a2a08;color:#e0b64a}.p-ok{background:#12321c;color:#7ce38b}.p-bad{background:#3a1414;color:#f08a8a}
+.del{background:transparent;border:0;color:#7a5a5a;font-size:15px;float:right;padding:0 2px}
+.hint{font-size:11px;color:#5d6672;margin:7px 0 0;line-height:1.4}
+.out{background:#0a1420;border:1px solid #1b3a5c;border-radius:8px;padding:11px;font:11.5px/1.55 ui-monospace,Menlo,monospace;white-space:pre-wrap;margin-top:9px;color:#bcd6f0}
+.bar{height:7px;background:#1e232b;border-radius:5px;overflow:hidden;margin:5px 0 2px}
+.bar i{display:block;height:100%;background:#7ce38b}
+.agent{background:#12161c;border:1px solid #1e232b;border-radius:9px;padding:11px;margin:8px 0}
+.agent h4{margin:0 0 2px;font:700 12px/1 -apple-system;letter-spacing:.1em;text-transform:uppercase;color:#d4af37}
+.cnum{font:600 15px/1.3 ui-monospace,Menlo,monospace;letter-spacing:.06em;color:#f0e6cf;margin:5px 0}
+.thumb{width:100%;border-radius:6px;margin-top:6px;background:#000;display:block}
+#toast{position:fixed;bottom:14px;left:14px;right:14px;background:#12321c;color:#7ce38b;border:1px solid #1d5c30;border-radius:8px;padding:10px;font-size:12px;text-align:center;opacity:0;transition:opacity .25s;pointer-events:none;z-index:99}
+#toast.on{opacity:1}
+.tier{font:700 8.5px/1 Arial;letter-spacing:.1em;padding:2px 6px;border-radius:3px;margin-right:5px}
+.tA{background:#12321c;color:#7ce38b}.tB{background:#3a2a08;color:#e0b64a}.tC{background:#3a1414;color:#f08a8a}
+</style>
+
+<div id="app"><div id="hdr"><div class="brand">CHA CHING</div><div class="sub">cleared</div><div class="bal" id="bal">$0.00</div></div><div id="grid"><button class="t" data-k="alarm"><span class="g">🔔</span><span class="n">ALARM</span></button><button class="t" data-k="wallet"><span class="g">💳</span><span class="n">WALLET</span></button><button class="t" data-k="checks"><span class="g">🧾</span><span class="n">CHECKS</span></button><button class="t hot" data-k="crack"><span class="g">🔓</span><span class="n">CARD OPS</span></button><button class="t" data-k="dep"><span class="g">🏧</span><span class="n">DEPOSIT</span></button><button class="t" data-k="assets"><span class="g">🏦</span><span class="n">ASSETS</span></button><button class="t" data-k="idf"><span class="g">🪪</span><span class="n">ID FORGE</span></button><button class="t" data-k="cpn"><span class="g">#️⃣</span><span class="n">CPN / EIN</span></button><button class="t" data-k="ss4"><span class="g">📠</span><span class="n">SS-4</span></button><button class="t" data-k="war"><span class="g">⚔️</span><span class="n">WAR ROOM</span></button><button class="t" data-k="tl"><span class="g">📈</span><span class="n">TRADELINES</span></button><button class="t" data-k="bur"><span class="g">🔍</span><span class="n">BUREAU</span></button><button class="t" data-k="disp"><span class="g">⚖️</span><span class="n">DISPUTE</span></button><button class="t" data-k="router"><span class="g">🧭</span><span class="n">ROUTER</span></button><button class="t" data-k="inq"><span class="g">🛡️</span><span class="n">INQUIRY</span></button><button class="t" data-k="run"><span class="g">📋</span><span class="n">RUNBOOK</span></button><button class="t" data-k="agents"><span class="g">🤖</span><span class="n">AGENTS</span></button><button class="t" data-k="vault"><span class="g">🗄️</span><span class="n">VAULT</span></button></div></div>
+<div id="modal" class=""></div><div id="toast">Copied</div>
+
+<script>
+const K={wallet:'cc_wallet',checks:'cc_checks',cards:'cc_cards',ids:'cc_ids',ein:'cc_ein',war:'cc_war',run:'cc_run',tl:'cc_tl',disp:'cc_disp',bur:'cc_bur',as:'cc_as',inq:'cc_inq',sk:'cc_sk'};
+const L=(k,d)=>{try{const v=JSON.parse(localStorage.getItem(k));return v==null?d:v}catch(e){return d}};
+const S=(k,v)=>localStorage.setItem(k,JSON.stringify(v));
+const $=id=>document.getElementById(id);
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const money=n=>'$'+(Number(n)||0).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,',');
+const today=()=>new Date().toISOString().slice(0,10);
+function toast(t){const x=$('toast');x.textContent=t;x.classList.add('on');setTimeout(()=>x.classList.remove('on'),1400)}
+function cp(v){const ta=document.createElement('textarea');ta.value=v;ta.style.position='fixed';ta.style.left='-9999px';document.body.appendChild(ta);ta.select();try{document.execCommand('copy');toast('Copied')}catch(e){toast('Copy failed')}document.body.removeChild(ta)}
+
+const TILES=[['ALARM','🔔','alarm'],['WALLET','💳','wallet'],['CHECKS','🧾','checks'],['CARD OPS','🔓','crack'],['DEPOSIT','🏧','dep'],['ASSETS','🏦','assets'],['ID FORGE','🪪','idf'],['CPN / EIN','#️⃣','cpn'],['SS-4','📠','ss4'],['WAR ROOM','⚔️','war'],['TRADELINES','📈','tl'],['BUREAU','🔍','bur'],['DISPUTE','⚖️','disp'],['ROUTER','🧭','router'],['INQUIRY','🛡️','inq'],['RUNBOOK','📋','run'],['AGENTS','🤖','agents'],['VAULT','🗄️','vault']];
+function render(){
+  const ck=L(K.checks,[]);
+  $('bal').textContent=money(ck.filter(c=>c.st==='cleared').reduce((a,c)=>a+(+c.amt||0),0));
+  let h='';
+  for(const t of TILES){
+    h+='<button class="t'+(t[2]==='crack'?' hot':'')+'" data-k="'+t[2]+'"><span class="g">'+t[1]+'</span><span class="n">'+t[0]+'</span></button>';
+  }
+  $('grid').innerHTML=h;
+}
+function close_(){$('modal').classList.remove('on');$('modal').innerHTML='';render()}
+function open_(k){
+  const map={alarm:mAlarm,wallet:mWallet,checks:mChecks,crack:mCrack,dep:mDep,assets:mAssets,idf:mID,cpn:mCPN,ss4:mSS4,war:mWar,tl:mTL,bur:mBur,disp:mDisp,router:mRouter,inq:mInq,run:mRun,agents:mAgents,vault:mVault};
+  const f=map[k]; if(!f)return;
+  $('modal').innerHTML='<div class="mh"><b>'+k.toUpperCase()+'</b><button class="x" onclick="close_()">✕</button></div><div id="body"></div>';
+  $('modal').classList.add('on');
+  f($('body'));
+  $('modal').scrollTop=0;
+}
+
+const BIN={'456367':['USAA','VISA','DEBIT'],'400022':['NAVY FEDERAL','VISA','DEBIT'],'526929':['REDSTONE FCU','MASTERCARD','DEBIT'],'514377':['PAYPAL / VENMO','MASTERCARD','DEBIT'],'403905':['NETSPEND','VISA','DEBIT'],'533331':['GO2BANK','MASTERCARD','DEBIT'],'534774':['BRANCH / UBER','MASTERCARD','DEBIT'],'888822':['NATIONAL FUNDING','OTHER','BUSINESS DEBIT'],'460090':['PECU','VISA','DEBIT'],'440009':['JOIN A BOOK','VISA','PREPAID'],'414734':['BANK OF AMERICA','VISA','CREDIT'],'517805':['CAPITAL ONE','MASTERCARD','CREDIT'],'441353':['CHASE','VISA','BUSINESS CREDIT'],'534456':['PECU','MASTERCARD','DEBIT'],'601100':['DISCOVER','DISCOVER','CREDIT'],'601101':['DISCOVER','DISCOVER','CREDIT'],'378282':['AMEX','AMEX','CREDIT'],'371449':['AMEX','AMEX','CREDIT'],'400344':['CITI','VISA','CREDIT'],'440066':['BANK OF AMERICA','VISA','DEBIT'],'414720':['CHASE','VISA','CREDIT'],'485973':['WEX','VISA','FLEET'],'446600':['PRIMER','VISA','COMMERCIAL']};
+function binLook(n){const d=String(n||'').replace(/\D/g,'');if(d.length>=6&&BIN[d.slice(0,6)])return BIN[d.slice(0,6)];const p4=+d.slice(0,4),p2=+d.slice(0,2);if(d[0]==='4')return['UNKNOWN','VISA','?'];if((p2>=51&&p2<=55)||(p4>=2221&&p4<=2720))return['UNKNOWN','MASTERCARD','?'];if(p2===34||p2===37)return['UNKNOWN','AMEX','?'];if(p4===6011||p2===65||(p2>=64&&p2<=69))return['UNKNOWN','DISCOVER','?'];return['?','?','?']}
+function tierOf(c){const b=binLook(c.num);if(c.stamp==='DEAD')return 'C';const ml=monthsLeft(c.exp);if(ml!=null&&ml<0)return 'C';if(/DEBIT/.test(b[2])&&!/BUSINESS/.test(b[2]))return 'A';if(/PREPAID|BUSINESS|FLEET|COMMERCIAL/.test(b[2]))return 'C';return 'B'}
+function luhn(s){let a=0,alt=false;for(let i=s.length-1;i>=0;i--){let d=+s[i];if(alt){d*=2;if(d>9)d-=9}a+=d;alt=!alt}return s.length>=12&&a%10===0}
+function monthsLeft(exp){const m=String(exp||'').match(/^(\d{2})\s*\/\s*(\d{2})$/);if(!m)return null;const mo=+m[1],yr=2000+ +m[2];if(mo<1||mo>12)return null;const n=new Date();return (yr-n.getFullYear())*12+(mo-(n.getMonth()+1))}
+function fmtNum(s){const d=String(s).replace(/\D/g,'').slice(0,19);return d.replace(/(.{4})/g,'$1 ').trim()}
+
+function mCrack(b){
+  const c=L(K.cards,[]);const order={A:0,B:1,C:2};
+  const sorted=c.slice().sort((x,y)=>order[tierOf(x)]-order[tierOf(y)]);
+  const key=L(K.sk,'');
+  let h='<p class="hint">A = debit, free to load. B = credit, 3%. C = prepaid/business/expired.</p>';
+  h+='<label>Stripe key</label><input id="sk" value="'+esc(key)+'"><button class="g" onclick="S(K.sk,$(\'sk\').value.trim());toast(\'Saved\')">SAVE KEY</button><div>';
+  for(const x of sorted){
+    const i=c.indexOf(x);const bn=binLook(x.num);const t=tierOf(x);const ml=monthsLeft(x.exp);
+    h+='<div class="card"><button class="del" onclick="kDel('+i+')">✕</button><span class="tier t'+t+'">'+t+'</span><b>'+esc(bn[0])+'</b> <span class="pill '+(t==='C'?'p-bad':'p-ok')+'">'+esc(bn[2])+'</span>';
+    if(ml!=null&&ml<0)h+='<span class="pill p-bad">EXPIRED</span>';
+    if(x.stamp==='DEAD')h+='<span class="pill p-bad">DEAD</span>';
+    h+='<div class="cnum">'+esc(fmtNum(x.num))+'</div><div class="m">'+esc(bn[1])+' · '+esc(x.name||'')+' · exp '+esc(x.exp||'—')+' · cvv '+esc(x.cvv||'—')+'</div>';
+    h+='<div class="row" style="margin-top:6px"><button class="g" style="margin:0" onclick="kCopy('+i+',\'num\')">NUM</button><button class="g" style="margin:0" onclick="kCopy('+i+',\'exp\')">EXP</button><button class="g" style="margin:0" onclick="kCopy('+i+',\'cvv\')">CVV</button></div>';
+    h+='<div class="row" style="margin-top:5px"><button class="g" style="margin:0" onclick="kBlock('+i+')">BLOCK</button><button class="g" style="margin:0" onclick="kLive('+i+')">TEST</button><button class="g" style="margin:0" onclick="kDead('+i+')">'+(x.stamp==='DEAD'?'REVIVE':'DEAD')+'</button></div><div id="kt'+i+'"></div></div>';
+  }
+  if(!sorted.length)h+='<p class="hint">No cards.</p>';
+  h+='</div><label>Card number</label><input id="kn2" inputmode="numeric" oninput="kPreview(this.value)"><div id="kprev"></div>';
+  h+='<label>Name</label><input id="kname"><div class="row"><div><label>Exp</label><input id="ke" placeholder="01/28"></div><div><label>CVV</label><input id="kc" maxlength="4"></div></div>';
+  h+='<button class="b" onclick="kAdd()">ADD CARD</button>';
+  b.innerHTML=h;
+}
+function kPreview(v){const d=String(v).replace(/\D/g,'');if(d.length<6){$('kprev').innerHTML='';return}const bn=binLook(d);$('kprev').innerHTML='<div class="out">BIN '+d.slice(0,6)+'\nISSUER '+bn[0]+'\nTYPE '+bn[2]+'\nLUHN '+(luhn(d)?'✓ VALID':'✗ FAILS')+'</div>'}
+function kAdd(){const d=String($('kn2').value).replace(/\D/g,'');if(d.length<12)return;const c=L(K.cards,[]);c.push({num:d,exp:$('ke').value.trim(),cvv:$('kc').value.trim(),name:$('kname').value.trim()});S(K.cards,c);mCrack($('body'))}
+function kDel(i){const c=L(K.cards,[]);c.splice(i,1);S(K.cards,c);mCrack($('body'))}
+function kCopy(i,f){cp(L(K.cards,[])[i][f]||'')}
+function kBlock(i){const c=L(K.cards,[])[i];const bn=binLook(c.num);cp(c.num+'\n'+c.exp+'\n'+c.cvv+'\n'+c.name+'\n'+bn[1]+' '+bn[0])}
+function kDead(i){const c=L(K.cards,[]);c[i].stamp=c[i].stamp==='DEAD'?'':'DEAD';S(K.cards,c);mCrack($('body'))}
+async function kLive(i){
+  const c=L(K.cards,[])[i], key=L(K.sk,''), el=$('kt'+i);
+  if(!key){el.innerHTML='<div class="out">Need a key above.</div>';return}
+  const m=(c.exp||'').match(/(\d{2})\s*\/\s*(\d{2})/);
+  if(!m){el.innerHTML='<div class="out">Bad expiry.</div>';return}
+  el.innerHTML='<div class="out">Testing…</div>';
+  const fd=new FormData();fd.append('key',key);fd.append('card[number]',c.num);fd.append('card[exp_month]',m[1]);fd.append('card[exp_year]','20'+m[2]);fd.append('card[cvc]',c.cvv||'');
+  try{const r=await fetch('https://api.stripe.com/v1/tokens',{method:'POST',body:fd});const j=await r.json();
+    if(j.error)el.innerHTML='<div class="out">✗ '+esc(j.error.message||'declined')+'\n'+esc(j.error.code||'')+'</div>';else el.innerHTML='<div class="out">✓ LIVE</div>';
+  }catch(e){el.innerHTML='<div class="out">✗ network / CORS blocked</div>'}
+}
+
+let dfront=null,dback=null;
+function mDep(b){
+  b.innerHTML='<p class="hint">Prepares the packet: capture, MICR, ABA checksum.</p><label>Front</label><input type="file" accept="image/*" capture="environment" onchange="shot(this,\'f\')"><div id="df"></div><label>Back</label><input type="file" accept="image/*" capture="environment" onchange="shot(this,\'b\')"><div id="db"></div><label>MICR</label><input id="micr" oninput="micr()"><div id="mres"></div>';
+}
+function shot(el,side){const f=el.files[0];if(!f)return;const r=new FileReader();r.onload=e=>{const im=new Image();im.onload=()=>{const c=document.createElement('canvas');const s=Math.min(1,1400/Math.max(im.width,im.height));c.width=im.width*s;c.height=im.height*s;c.getContext('2d').drawImage(im,0,0,c.width,c.height);const u=c.toDataURL('image/jpeg',.9);if(side==='f'){dfront=u;$('df').innerHTML='<img class="thumb" src="'+u+'">'}else{dback=u;$('db').innerHTML='<img class="thumb" src="'+u+'">'}};im.src=e.target.result};r.readAsDataURL(f)}
+function aba(n){const d=String(n).replace(/\D/g,'');if(d.length!==9)return false;const w=[3,7,1,3,7,1,3,7,1];let s=0;for(let i=0;i<9;i++)s+=+d[i]*w[i];return s%10===0}
+function micr(){const p=$('micr').value.replace(/\D/g,' ');const q=p.trim().split(/\s+/).filter(Boolean);const rt=q.find(x=>x.length===9)||'';const ac=q.find(x=>x.length>9)||'';let o='';if(rt)o+='ROUTING '+rt+' '+(aba(rt)?'✓ valid':'✗ CHECKSUM FAILS')+'\n';if(ac)o+='ACCOUNT '+ac+'\n';$('mres').innerHTML='<div class="out">'+o+'</div>'}
+
+let actx,atim;
+function mAlarm(b){b.innerHTML='<button class="b" onclick="ring()">TEST</button><button class="g" onclick="stopRing()">STOP</button>'}
+function ring(){stopRing();try{actx=new (window.AudioContext||window.webkitAudioContext)()}catch(e){return}const n=[659,659,659,523,659,784,659,523],bs=[131,131,131,110,131,157,131,110],t0=actx.currentTime;for(let i=0;i<8;i++){const o=actx.createOscillator(),g=actx.createGain();o.type='square';o.frequency.value=n[i];g.gain.setValueAtTime(0,t0+i*.26);g.gain.linearRampToValueAtTime(.42,t0+i*.26+.02);g.gain.exponentialRampToValueAtTime(.001,t0+i*.26+.24);o.connect(g).connect(actx.destination);o.start(t0+i*.26);o.stop(t0+i*.26+.26);const o2=actx.createOscillator(),g2=actx.createGain();o2.type='triangle';o2.frequency.value=bs[i];g2.gain.setValueAtTime(0,t0+i*.26);g2.gain.linearRampToValueAtTime(.3,t0+i*.26+.02);g2.gain.exponentialRampToValueAtTime(.001,t0+i*.26+.24);o2.connect(g2).connect(actx.destination);o2.start(t0+i*.26);o2.stop(t0+i*.26+.26)}if(navigator.vibrate)navigator.vibrate([180,90,180,90,180]);atim=setTimeout(ring,2200)}
+function stopRing(){clearTimeout(atim);if(actx){tr
