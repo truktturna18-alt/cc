@@ -1,1 +1,24 @@
-https://github.com/truktturna18-alt/cc/new/main?filename=t.html
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>T</title>
+<style>
+body{background:#0b0b0d;color:#eee;font-family:system-ui;padding:20px}
+a{display:block;background:#1a1a20;border:1px solid #333;padding:18px;margin:10px 0;border-radius:10px;color:#eee;text-decoration:none}
+#p{background:#111;border:1px solid #444;padding:16px;border-radius:10px;min-height:80px;margin-top:20px}
+#alive{font-weight:700}
+</style></head><body>
+<h2>TEST</h2>
+<p id="alive">JS: dead</p>
+<a href="#one">TAP ME</a>
+<div id="p">panel idle</div>
+<script>
+document.getElementById('alive').textContent='JS: ALIVE';
+function route(){
+  var k=location.hash.replace('#','');
+  document.getElementById('p').textContent = k ? 'PANEL OPENED: '+k : 'panel idle';
+}
+window.addEventListener('hashchange',route);
+route();
+</script>
+</body></html>
