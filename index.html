@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>TL Services - Gift Cards and Prepaid Activation</title>
-<meta name="description" content="Gift cards and prepaid card activation at fixed denominations, delivered digitally.">
+<meta name="description" content="Gift cards and prepaid card activation at fixed denominations, delivered digitally. Pay by bank.">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:#0e1116;color:#e6e4df;font:16px/1.6 system-ui,sans-serif}
@@ -19,11 +19,21 @@ td:last-child{text-align:right;color:#7ce38b;font-weight:700;font-family:ui-mono
 a{color:#d4af37}
 footer{border-top:1px solid #1e242c;padding:20px;font-size:12px;color:#6d757f;text-align:center}
 .applink{display:block;text-align:center;background:#d4af37;color:#0b0d10;text-decoration:none;font:700 13px system-ui;letter-spacing:.1em;padding:14px;border-radius:9px;margin:22px 0}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.chip{flex:1;min-width:70px;padding:11px;border-radius:8px;border:1px solid #2b333d;background:#151b22;color:#cfd6de;font:700 12px system-ui;cursor:pointer}
+.chip.on{background:#d4af37;color:#0b0d10;border-color:#d4af37}
+input,select{width:100%;padding:11px;margin-bottom:8px;background:#0a0d11;border:1px solid #2b333d;border-radius:8px;color:#e6e4df;font:14px ui-monospace,monospace}
+label.m{display:flex;gap:9px;align-items:flex-start;font-size:12px;color:#9aa3ad;margin:10px 0}
+.pay{width:100%;padding:14px;border:0;border-radius:9px;background:#0f7b5f;color:#fff;font:700 14px system-ui;letter-spacing:.06em;cursor:pointer}
+.pay:disabled{opacity:.5}
+#st{font-size:12.5px;color:#8d959e;margin-top:10px;min-height:18px}
+#st.bad{color:#ff7b7b}#st.good{color:#7ce38b}
+.small{font-size:11.5px;color:#7c858f}
 </style></head><body>
 <header><div class="logo">TL SERVICES</div><div class="tag">Gift cards &amp; prepaid activation</div></header>
 <main>
 <h2>What we do</h2>
-<p>TL Services sells gift cards and prepaid card activation at fixed denominations. Cards are activated at the point of sale and delivered digitally to the buyer within minutes. We also handle card loading and small business card services.</p>
+<p>TL Services sells gift cards and prepaid card activation at fixed denominations. Cards are delivered digitally to the buyer. We also handle card loading and small business card services.</p>
 
 <h2>Pricing</h2>
 <table>
@@ -34,9 +44,29 @@ footer{border-top:1px solid #1e242c;padding:20px;font-size:12px;color:#6d757f;te
 <tr><td>Card loading service, per load</td><td>3% of load</td></tr>
 </table>
 <p>All prices in USD. No monthly fee. No setup fee.</p>
+<p class="small">Cards are supplied blank unless the listing states otherwise. Blank cards are activated at a retailer register; activation service is listed above.</p>
+
+<h2>Pay by bank</h2>
+<div class="box">
+<p class="small" style="margin-bottom:12px">Pay straight from a checking or savings account. No card needed.</p>
+<div class="chips" id="chips">
+  <button class="chip on" data-amt="25" data-desc="TL gift card 25">$25 card</button>
+  <button class="chip" data-amt="50" data-desc="TL gift card 50">$50 card</button>
+  <button class="chip" data-amt="100" data-desc="TL gift card 100">$100 card</button>
+  <button class="chip" data-amt="4.95" data-desc="Prepaid card activation">Activation $4.95</button>
+</div>
+<input id="nm" placeholder="Name on account" autocomplete="name">
+<input id="em" type="email" placeholder="Email for receipt" autocomplete="email">
+<input id="rt" placeholder="Routing number (9 digits)" inputmode="numeric" autocomplete="off">
+<input id="ac" placeholder="Account number" inputmode="numeric" autocomplete="off">
+<select id="ty"><option value="checking">Checking</option><option value="savings">Savings</option></select>
+<label class="m"><input type="checkbox" id="md" style="width:auto;margin:2px 0 0"> I authorize TL Services to debit this account per the mandate.</label>
+<button class="pay" id="go">PAY BY BANK</button>
+<div id="st"></div>
+</div>
 
 <h2>How it works</h2>
-<div class="box"><p style="margin:0"><b>1.</b> Choose a denomination. <b>2.</b> Pay by card. <b>3.</b> The card is activated and the number is sent to you. Most orders complete in under five minutes during business hours.</p></div>
+<div class="box"><p style="margin:0"><b>1.</b> Choose a denomination. <b>2.</b> Pay by bank. <b>3.</b> You get a confirmation email. Bank debits settle in about four business days; your order is queued on confirmation.</p></div>
 
 <h2>Refunds</h2>
 <p>An unactivated card is refunded in full. Once a card has been activated the balance is held by the card issuer and is not refundable, but a card that fails to activate is replaced or refunded within 24 hours of the order.</p>
@@ -56,4 +86,83 @@ TL Services, 5203 Daybreak, Killeen, TX</p>
 <a class="applink" href="v.html">OPEN THE VAULT</a>
 </main>
 <footer>TL Services &middot; Killeen, Texas &middot; USD</footer>
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+var SK='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', PK='pk_live_51JLj3rFy5BL46irurBgoex6FeHnjwkDQls2ObSGBkR5s8nupGu84vBuKp2cx7U29P8jjwYWrs7Lu6GR73BAW0XSH00eaSEycrz';
+var stripe=null, amt=25, desc='TL gift card 25';
+var st=document.getElementById('st'), go=document.getElementById('go');
+function say(t,cls){st.textContent=t;st.className=cls||'';}
+
+document.getElementById('chips').addEventListener('click',function(e){
+  var b=e.target.closest('.chip'); if(!b) return;
+  [].forEach.call(document.querySelectorAll('.chip'),function(x){x.classList.remove('on')});
+  b.classList.add('on'); amt=parseFloat(b.dataset.amt); desc=b.dataset.desc;
+});
+
+var rt=document.getElementById('rt');
+rt.addEventListener('input',function(){
+  rt.value=rt.value.replace(/\D/g,'').slice(0,9);
+  if(rt.value.length===9){
+    var d=rt.value.split('').map(Number);
+    var ok=(3*(d[0]+d[3]+d[6])+7*(d[1]+d[4]+d[7])+(d[2]+d[5]+d[8]))%10===0;
+    say(ok?'Routing number checks out.':'That routing number fails its checksum.',ok?'good':'bad');
+  }
+});
+document.getElementById('ac').addEventListener('input',function(e){e.target.value=e.target.value.replace(/\D/g,'')});
+
+if(window.Stripe && PK && PK.indexOf('PASTE')<0) stripe=Stripe(PK);
+
+var q=new URLSearchParams(location.search);
+if(q.get('payment_intent_client_secret') && stripe){
+  stripe.retrievePaymentIntent(q.get('payment_intent_client_secret')).then(function(r){
+    if(r.error) return say(r.error.message,'bad');
+    var s=r.paymentIntent.status;
+    say(s==='processing'||s==='succeeded'?'Payment accepted. Watch your email.':'Payment status: '+s, s==='processing'||s==='succeeded'?'good':'bad');
+  });
+}
+
+go.addEventListener('click',function(){
+  if(!stripe) return say('Payment system not loaded. Reload and retry.','bad');
+  var nm=document.getElementById('nm').value.trim();
+  var em=document.getElementById('em').value.trim();
+  var ac=document.getElementById('ac').value.trim();
+  if(!nm) return say('Enter the name on the account.','bad');
+  if(!em) return say('Enter an email for the receipt.','bad');
+  if(rt.value.length!==9) return say('Routing number must be 9 digits.','bad');
+  var d=rt.value.split('').map(Number);
+  if((3*(d[0]+d[3]+d[6])+7*(d[1]+d[4]+d[7])+(d[2]+d[5]+d[8]))%10!==0) return say('Routing number fails checksum.','bad');
+  if(ac.length<4) return say('Account number looks too short.','bad');
+  if(!document.getElementById('md').checked) return say('Tick the authorization box.','bad');
+
+  go.disabled=true; say('Creating payment…');
+  fetch('https://api.stripe.com/v1/payment_intents',{
+    method:'POST',
+    headers:{'Authorization':'Bearer '+SK,'Content-Type':'application/x-www-form-urlencoded'},
+    body:new URLSearchParams({
+      amount:Math.round(amt*100),currency:'usd',
+      'payment_method_types[]':'us_bank_account',
+      description:desc,
+      receipt_email:em,
+      'payment_method_options[us_bank_account][verification_method]':'automatic'
+    })
+  }).then(function(r){return r.json()}).then(function(j){
+    if(j.error){go.disabled=false;return say(j.error.message,'bad')}
+    return stripe.confirmPayment({
+      clientSecret:j.client_secret,
+      confirmParams:{
+        return_url:location.origin+'/',
+        payment_method_data:{
+          type:'us_bank_account',
+          billing_details:{name:nm,email:em},
+          us_bank_account:{routing_number:rt.value,account_number:ac,account_holder_type:'individual'}
+        }
+      }
+    });
+  }).then(function(res){
+    if(!res) return;
+    if(res.error){go.disabled=false;return say(res.error.message,'bad')}
+    say('Redirecting to your bank confirmation…');
+  }).catch(function(e){go.disabled=false;say('Network error: '+e.message,'bad')});
+});
+</script>
 </body></html>
