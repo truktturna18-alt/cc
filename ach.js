@@ -1,8 +1,7 @@
-/* ach.js — Stripe ACH Direct Debit (us_bank_account) */
+/* ach.js v2 — Stripe ACH (confirmPayment path) */
 (function () {
-  if (window.__ach) return; window.__ach = true;
+  if (window.__ach2) return; window.__ach2 = true;
 
-  var sk = localStorage.getItem('tl_sk') || '', pk = localStorage.getItem('tl_pk') || '';
   var stripe = null, statusEl, logEl, amtEl, descEl, nameEl, emailEl, rtEl, acEl, typeEl, mEl, goBtn, pollBtn, clientSecret = null;
 
   function mk(t, css, txt) { var e = document.createElement(t); if (css) e.style.cssText = css; if (txt != null) e.textContent = txt; return e; }
@@ -20,35 +19,29 @@
     var host = document.getElementById('body') || document.body;
     var c = mk('div', 'padding:14px;border:1px solid #2a2a2a;border-radius:10px;background:#111;color:#ddd;font:13px system-ui,sans-serif;margin:10px 0;');
     c.appendChild(mk('div', 'font-weight:700;letter-spacing:.08em;font-size:12px;margin-bottom:8px;', 'ACH / eCHECK CHARGE'));
-
     statusEl = mk('div', 'font-size:11px;margin-bottom:10px;', 'paste keys once');
     c.appendChild(statusEl);
 
-    var skEl = fld('sk_live_…', sk, 'password'); skEl.oninput = function () { localStorage.setItem('tl_sk', skEl.value.trim()); };
+    var skEl = fld('sk_live_…', localStorage.getItem('tl_sk') || '', 'password');
+    skEl.oninput = function () { localStorage.setItem('tl_sk', skEl.value.trim()); };
     c.appendChild(skEl);
-    var pkEl = fld('pk_live_…', pk); pkEl.oninput = function () { localStorage.setItem('tl_pk', pkEl.value.trim()); };
+    var pkEl = fld('pk_live_…', localStorage.getItem('tl_pk') || '');
+    pkEl.oninput = function () { localStorage.setItem('tl_pk', pkEl.value.trim()); initStripe(); };
     c.appendChild(pkEl);
 
-    amtEl = fld('amount USD (min 0.50)', '25');
-    c.appendChild(amtEl);
-
+    amtEl = fld('amount USD (min 0.50)', '25'); c.appendChild(amtEl);
     var chips = mk('div', 'display:flex;gap:6px;margin-bottom:6px;');
     [25, 50, 100, 150].forEach(function (v) {
       var b = mk('button', 'flex:1;padding:8px;border-radius:6px;border:1px solid #333;background:#1a1a1a;color:#ccc;font-size:11px;', '$' + v);
-      b.onclick = function () { amtEl.value = v; };
-      chips.appendChild(b);
+      b.onclick = function () { amtEl.value = v; }; chips.appendChild(b);
     });
     c.appendChild(chips);
 
-    descEl = fld('description (e.g. TL gift card 25)');
-    c.appendChild(descEl);
-    nameEl = fld('account holder name');
-    c.appendChild(nameEl);
-    emailEl = fld('email (receipt)', '', 'email');
-    c.appendChild(emailEl);
+    descEl = fld('description (e.g. TL gift card 25)'); c.appendChild(descEl);
+    nameEl = fld('account holder name'); c.appendChild(nameEl);
+    emailEl = fld('email (receipt)', '', 'email'); c.appendChild(emailEl);
 
-    rtEl = fld('routing number (9 digits)', '');
-    rtEl.inputMode = 'numeric';
+    rtEl = fld('routing number (9 digits)'); rtEl.inputMode = 'numeric';
     rtEl.oninput = function () {
       rtEl.value = rtEl.value.replace(/\D/g, '').slice(0, 9);
       if (rtEl.value.length === 9) {
@@ -59,8 +52,7 @@
     };
     c.appendChild(rtEl);
 
-    acEl = fld('account number', '');
-    acEl.inputMode = 'numeric';
+    acEl = fld('account number'); acEl.inputMode = 'numeric';
     acEl.oninput = function () { acEl.value = acEl.value.replace(/\D/g, ''); };
     c.appendChild(acEl);
 
@@ -108,12 +100,10 @@
     var amt = Math.round(parseFloat(amtEl.value) * 100);
     if (!amt || amt < 50) return st('min 0.50', true);
     if (!/^\d{9}$/.test(rtEl.value)) return st('routing must be 9 digits', true);
-    if (rtEl.value.length === 9) {
-      var d = rtEl.value.split('').map(Number);
-      if ((3 * (d[0] + d[3] + d[6]) + 7 * (d[1] + d[4] + d[7]) + (d[2] + d[5] + d[8])) % 10 !== 0) return st('routing checksum fail', true);
-    }
-    if (acEl.value.length < 4) return st('account number too short', true);
-    if (!nameEl.value.trim()) return st('need account holder name', true);
+    var d = rtEl.value.split('').map(Number);
+    if ((3 * (d[0] + d[3] + d[6]) + 7 * (d[1] + d[4] + d[7]) + (d[2] + d[5] + d[8])) % 10 !== 0) return st('routing checksum fail', true);
+    if (acEl.value.length < 4) return st('account too short', true);
+    if (!nameEl.value.trim()) return st('need holder name', true);
     if (!mEl.checked) return st('accept the mandate', true);
 
     st('creating intent…');
@@ -121,8 +111,7 @@
       method: 'POST',
       headers: { 'Authorization': 'Bearer ' + key, 'Content-Type': 'application/x-www-form-urlencoded' },
       body: new URLSearchParams({
-        amount: amt,
-        currency: 'usd',
+        amount: amt, currency: 'usd',
         'payment_method_types[]': 'us_bank_account',
         description: descEl.value || 'TL ACH charge',
         'payment_method_options[us_bank_account][verification_method]': 'automatic'
@@ -132,23 +121,27 @@
       clientSecret = j.client_secret;
       log('intent ' + j.id + ' $' + (amt / 100).toFixed(2));
       st('confirming…');
-      return stripe.confirmUsBankAccount(j.client_secret, {
-        payment_method: {
-          billing_details: { name: nameEl.value.trim(), email: emailEl.value.trim() || undefined },
-          us_bank_account: {
-            routing_number: rtEl.value,
-            account_number: acEl.value,
-            account_holder_type: 'individual'
-          }
-        }
+      var pd = {
+        type: 'us_bank_account',
+        billing_details: { name: nameEl.value.trim(), email: emailEl.value.trim() || undefined },
+        us_bank_account: { routing_number: rtEl.value, account_number: acEl.value, account_holder_type: 'individual' }
+      };
+      if (typeof stripe.confirmUsBankAccount === 'function') {
+        return stripe.confirmUsBankAccount(j.client_secret, { payment_method: pd });
+      }
+      log('using confirmPayment path');
+      return stripe.confirmPayment({
+        clientSecret: j.client_secret,
+        confirmParams: { return_url: location.origin + location.pathname + '?v=12#ach', payment_method_data: pd }
       });
     }).then(function (res) {
       if (!res) return;
       if (res.error) { st(res.error.message, true); log(res.error.message, true); return; }
       var pi = res.paymentIntent;
+      if (!pi) { st('redirecting…'); return; }
       st('ACCEPTED — ' + pi.status);
       log('pi ' + pi.id + ' ' + pi.status);
-      log('micro-deposits will post in 1-2 days');
+      log('micro-deposits post in 1-2 days');
     }).catch(function (e) { st('net fail: ' + e.message, true); log(e.message, true); });
   }
 
